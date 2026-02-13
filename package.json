@@ -1,0 +1,18 @@
+{
+  "name": "sailshr",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm run start -w frontend\" \"npm run start -w backend\"",
+    "lint": "npm run lint -w frontend && npm run lint -w backend",
+    "format": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
+    "format:write": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
+  }
+}
