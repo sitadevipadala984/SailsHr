@@ -23,23 +23,32 @@ export type Department = {
   headId?: string;
 };
 
+export type AttendanceStatus = "PRESENT" | "ABSENT" | "HALF_DAY";
+
 export type AttendanceRecord = {
   employeeId: string;
   date: string;
-  punchIn: string;
-  punchOut: string;
-  status: "PRESENT" | "ABSENT" | "HALF_DAY";
+  punchInAt?: string;
+  punchOutAt?: string;
+  punchIn?: string;
+  punchOut?: string;
+  status: AttendanceStatus;
   workHours: number;
 };
+
+export type LeaveType = "CL" | "SL" | "PL";
 
 export type LeaveRequest = {
   id: string;
   employeeId: string;
-  type: "CL" | "SL" | "PL";
+  type: LeaveType;
   startDate: string;
   endDate: string;
+  totalDays: number;
+  reason?: string;
   status: "PENDING" | "APPROVED" | "REJECTED";
   approverId?: string;
+  decidedAt?: string;
 };
 
 export type LeaveBalance = {
@@ -143,11 +152,36 @@ export const authUsers: AuthUser[] = [
 ];
 
 export const attendance: AttendanceRecord[] = [
-  { employeeId: "emp-001", date: "2026-02-10", punchIn: "09:22", punchOut: "18:19", status: "PRESENT", workHours: 8.95 },
-  { employeeId: "emp-002", date: "2026-02-10", punchIn: "09:04", punchOut: "18:02", status: "PRESENT", workHours: 8.96 },
-  { employeeId: "emp-003", date: "2026-02-10", punchIn: "09:45", punchOut: "14:01", status: "HALF_DAY", workHours: 4.27 },
-  { employeeId: "emp-004", date: "2026-02-10", punchIn: "09:10", punchOut: "18:05", status: "PRESENT", workHours: 8.91 },
-  { employeeId: "emp-005", date: "2026-02-10", punchIn: "00:00", punchOut: "00:00", status: "ABSENT", workHours: 0 }
+  {
+    employeeId: "emp-001",
+    date: "2026-02-10",
+    punchInAt: "2026-02-10T09:22:00.000Z",
+    punchOutAt: "2026-02-10T18:19:00.000Z",
+    punchIn: "09:22",
+    punchOut: "18:19",
+    status: "PRESENT",
+    workHours: 8.95
+  },
+  {
+    employeeId: "emp-002",
+    date: "2026-02-10",
+    punchInAt: "2026-02-10T09:04:00.000Z",
+    punchOutAt: "2026-02-10T18:02:00.000Z",
+    punchIn: "09:04",
+    punchOut: "18:02",
+    status: "PRESENT",
+    workHours: 8.96
+  },
+  {
+    employeeId: "emp-003",
+    date: "2026-02-10",
+    punchInAt: "2026-02-10T09:45:00.000Z",
+    punchOutAt: "2026-02-10T14:01:00.000Z",
+    punchIn: "09:45",
+    punchOut: "14:01",
+    status: "HALF_DAY",
+    workHours: 4.27
+  }
 ];
 
 export const leaveRequests: LeaveRequest[] = [
@@ -157,6 +191,8 @@ export const leaveRequests: LeaveRequest[] = [
     type: "CL",
     startDate: "2026-02-14",
     endDate: "2026-02-14",
+    totalDays: 1,
+    reason: "Personal work",
     status: "PENDING",
     approverId: "emp-002"
   },
@@ -166,8 +202,11 @@ export const leaveRequests: LeaveRequest[] = [
     type: "SL",
     startDate: "2026-02-09",
     endDate: "2026-02-10",
+    totalDays: 2,
+    reason: "Fever",
     status: "APPROVED",
-    approverId: "emp-005"
+    approverId: "emp-005",
+    decidedAt: "2026-02-08T10:30:00.000Z"
   }
 ];
 
@@ -176,5 +215,6 @@ export const leaveBalances: LeaveBalance[] = [
   { employeeId: "emp-002", CL: 7, SL: 6, PL: 13 },
   { employeeId: "emp-003", CL: 4, SL: 4, PL: 10 },
   { employeeId: "emp-004", CL: 6, SL: 6, PL: 14 },
-  { employeeId: "emp-005", CL: 3, SL: 5, PL: 11 }
+  { employeeId: "emp-005", CL: 3, SL: 5, PL: 11 },
+  { employeeId: "emp-999", CL: 10, SL: 10, PL: 20 }
 ];

@@ -191,3 +191,13 @@ td {
     flex-wrap: wrap;
   }
 }
+
+
+.success-text {
+  color: #047857;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

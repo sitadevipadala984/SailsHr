@@ -8,7 +8,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "check": "tsc --noEmit",
-    "db:migrate": "psql \"$DATABASE_URL\" -f db/migrations/001_employee_core.sql"
+    "db:migrate": "psql \"$DATABASE_URL\" -f db/migrations/001_employee_core.sql",
+    "db:migrate:attendance": "psql \"$DATABASE_URL\" -f db/migrations/002_attendance_core.sql"
   },
   "dependencies": {
     "fastify": "^5.2.1",
