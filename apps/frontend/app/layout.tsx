@@ -1,16 +1,13 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "SailsHR",
-  description: "Internal HRMS"
+  title: "SailsHR POC",
+  description: "Internal HRMS POC dashboard"
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>

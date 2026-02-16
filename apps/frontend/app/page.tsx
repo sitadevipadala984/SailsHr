@@ -1,10 +1,12 @@
-import { env } from "@/lib/env";
+import { redirect } from "next/navigation";
+import { getSessionUser, roleHome } from "../lib/auth";
 
-export default function HomePage() {
-  return (
-    <main>
-      <h1>SailsHR Frontend</h1>
-      <p>API URL: {env.NEXT_PUBLIC_API_URL}</p>
-    </main>
-  );
+export default async function HomePage() {
+  const user = await getSessionUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  redirect(roleHome(user.role));
 }

@@ -2,12 +2,10 @@
   "name": "sailshr",
   "private": true,
   "version": "1.0.0",
-  "workspaces": [
-    "apps/*"
-  ],
+  "workspaces": ["apps/*"],
   "scripts": {
-    "start": "concurrently \"npm run start -w frontend\" \"npm run start -w backend\"",
-    "lint": "npm run lint -w frontend && npm run lint -w backend",
+    "start": "concurrently \"npm run dev -w api\" \"npm run dev -w frontend\"",
+    "lint": "npm run lint -w frontend",
     "format": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
   },
