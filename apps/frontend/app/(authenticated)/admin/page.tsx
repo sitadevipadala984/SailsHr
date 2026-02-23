@@ -20,11 +20,11 @@ export default async function AdminPage() {
   return (
     <main>
       <h1>Admin Console</h1>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Departments</h2>
         <pre>{JSON.stringify(departments, null, 2)}</pre>
       </section>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Employee Controls</h2>
         <pre>{JSON.stringify(employees, null, 2)}</pre>
       </section>
