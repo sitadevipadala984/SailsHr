@@ -9,6 +9,7 @@ import {
   employees,
   leaveBalances,
   leaveRequests,
+  DEFAULT_LEAVE_GRANTED,
   type Employee,
   type AttendanceRecord,
   type AttendanceStatus,
@@ -238,7 +239,7 @@ app.post<{ Body: EmployeePayload }>("/api/v1/employees", { preHandler: [authenti
   const firstName = request.body.firstName as string;
   const lastName = request.body.lastName as string;
   const created: Employee = {
-    id: `emp-${String(employees.length + 1).padStart(3, "0")}`,
+    id: `id-${String(employees.length + 1).padStart(3, "0")}`,
     employeeCode: request.body.employeeCode as string,
     firstName,
     lastName,
@@ -253,6 +254,12 @@ app.post<{ Body: EmployeePayload }>("/api/v1/employees", { preHandler: [authenti
   };
 
   employees.push(created);
+  leaveBalances.push({
+    employeeId: created.id,
+    balance: DEFAULT_LEAVE_GRANTED,
+    used: 0,
+    total: DEFAULT_LEAVE_GRANTED
+  });
   return reply.status(201).send(created);
 });
 

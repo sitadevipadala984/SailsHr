@@ -15,7 +15,7 @@ type Attendance = {
   workHours: number;
 };
 
-type LeaveBalance = { employeeId: string; CL: number; SL: number; PL: number };
+type LeaveBalance = { employeeId: string; balance: number; used: number; total: number };
 type LeaveRequest = {
   id: string;
   type: "CL" | "SL" | "PL";
@@ -114,8 +114,8 @@ export default async function EmployeePage({
       <section className="card" style={{ marginTop: "1rem" }}>
         <h2>My Leave Balance</h2>
         <table>
-          <thead><tr><th>CL</th><th>SL</th><th>PL</th></tr></thead>
-          <tbody>{balances.map((balance) => (<tr key={balance.employeeId}><td>{balance.CL}</td><td>{balance.SL}</td><td>{balance.PL}</td></tr>))}</tbody>
+          <thead><tr><th>Balance</th><th>Used</th><th>Total</th></tr></thead>
+          <tbody>{balances.map((row) => (<tr key={row.employeeId}><td>{row.balance}</td><td>{row.used}</td><td>{row.total}</td></tr>))}</tbody>
         </table>
       </section>
     </main>
