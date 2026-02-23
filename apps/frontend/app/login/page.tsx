@@ -11,7 +11,7 @@ export default async function LoginPage({
     <main>
       <h1>SailsHR Login</h1>
       <p className="subtitle">Use one of the seeded users (employee/manager/hr/admin @sailshr.local, password: Pass@123)</p>
-      <section className="card" style={{ maxWidth: 460, marginTop: "1rem" }}>
+      <section className="card mt-4 max-w-lg">
         <form action={loginAction} className="form-col">
           <label htmlFor="email">Email</label>
           <input id="email" name="email" type="email" required />

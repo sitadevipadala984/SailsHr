@@ -29,7 +29,7 @@ export default async function NewEmployeePage({
   return (
     <main>
       <h1>Create Employee</h1>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <form action={createEmployeeAction} className="form-grid">
           <label>Employee Code<input name="employeeCode" required /></label>
           <label>First Name<input name="firstName" required /></label>

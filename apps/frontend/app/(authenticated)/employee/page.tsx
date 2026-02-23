@@ -54,13 +54,13 @@ export default async function EmployeePage({
     <main>
       <h1>Employee Dashboard</h1>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Today&apos;s Attendance</h2>
         <p className="subtitle">Status: <strong>{todayRecord?.status ?? "ABSENT"}</strong></p>
         <p>
           Punch In: {todayRecord?.punchIn ?? "--"} | Punch Out: {todayRecord?.punchOut ?? "--"} | Hours: {todayRecord?.workHours ?? 0}
         </p>
-        <div className="action-row" style={{ marginTop: "0.5rem" }}>
+        <div className="action-row mt-2">
           <form action={punchInAction}><button type="submit" disabled={Boolean(todayRecord?.punchInAt)}>Punch In</button></form>
           <form action={punchOutAction}><button type="submit" disabled={!todayRecord?.punchInAt || Boolean(todayRecord?.punchOutAt)}>Punch Out</button></form>
         </div>
@@ -68,7 +68,7 @@ export default async function EmployeePage({
         {params.updated ? <p className="success-text">Attendance updated successfully.</p> : null}
       </section>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Attendance History</h2>
         <table>
           <thead><tr><th>Date</th><th>Punch In</th><th>Punch Out</th><th>Hours</th><th>Status</th></tr></thead>
@@ -80,7 +80,7 @@ export default async function EmployeePage({
         </table>
       </section>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Apply Leave</h2>
         <form action={applyLeaveAction} className="form-grid">
           <label>Leave Type
@@ -99,7 +99,7 @@ export default async function EmployeePage({
         {params.leaveUpdated ? <p className="success-text">Leave request submitted.</p> : null}
       </section>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>My Leave Requests</h2>
         <table>
           <thead><tr><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Status</th></tr></thead>
@@ -111,7 +111,7 @@ export default async function EmployeePage({
         </table>
       </section>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>My Leave Balance</h2>
         <table>
           <thead><tr><th>CL</th><th>SL</th><th>PL</th></tr></thead>

@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Card } from "../../../src/components/ui/card";
+import { DashboardLayoutSample } from "../../../src/theme/dashboard-layout-sample";
 import { getSessionUser } from "../../../lib/auth";
 
 export default async function HrPage() {
@@ -16,17 +18,31 @@ export default async function HrPage() {
   const dashboard = await dashboardResponse.json();
   const employees = await employeesResponse.json();
 
+  const metrics = [
+    { label: "Total Employees", value: String(dashboard.totalEmployees ?? "--") },
+    { label: "Present Today", value: String(dashboard.presentToday ?? "--") },
+    { label: "Leave Requests", value: String(dashboard.pendingLeaveRequests ?? "--") },
+    { label: "Attendance %", value: String(dashboard.attendancePercent ?? "--") }
+  ];
+
   return (
-    <main>
-      <h1>HR Dashboard</h1>
-      <section className="card" style={{ marginTop: "1rem" }}>
+    <main className="space-y-4">
+      <div>
+        <h1>HR Dashboard</h1>
+        <p className="subtitle">Enterprise snapshot with clean cards and subtle hierarchy.</p>
+      </div>
+
+      <DashboardLayoutSample metrics={metrics} />
+
+      <Card>
         <h2>Org Snapshot</h2>
-        <pre>{JSON.stringify(dashboard, null, 2)}</pre>
-      </section>
-      <section className="card" style={{ marginTop: "1rem" }}>
+        <pre className="mt-4">{JSON.stringify(dashboard, null, 2)}</pre>
+      </Card>
+
+      <Card>
         <h2>Employee Directory</h2>
-        <pre>{JSON.stringify(employees, null, 2)}</pre>
-      </section>
+        <pre className="mt-4">{JSON.stringify(employees, null, 2)}</pre>
+      </Card>
     </main>
   );
 }
