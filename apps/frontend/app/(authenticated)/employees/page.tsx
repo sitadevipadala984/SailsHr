@@ -32,7 +32,7 @@ export default async function EmployeeListPage() {
         <h1>Employee Management</h1>
         {user.role !== "MANAGER" ? <Link href="/employees/new" className="link-btn">Add Employee</Link> : null}
       </div>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <table>
           <thead>
             <tr><th>Code</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr>

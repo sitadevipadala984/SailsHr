@@ -51,7 +51,7 @@ export default async function EditEmployeePage({
   return (
     <main>
       <h1>Edit Employee</h1>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <form action={updateAction} className="form-grid">
           <label>Employee Code<input name="employeeCode" defaultValue={employee.employeeCode} required /></label>
           <label>First Name<input name="firstName" defaultValue={employee.firstName} required /></label>

@@ -29,7 +29,7 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
       <h1>Manager Attendance & Leave</h1>
       <p className="subtitle">Role-based visibility for team attendance and leave approvals</p>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Pending Leave Approvals</h2>
         <table>
           <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Action</th></tr></thead>
@@ -55,7 +55,7 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
         {params.leaveUpdated ? <p className="success-text">Leave decision submitted.</p> : null}
       </section>
 
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <h2>Today&apos;s Team Status</h2>
         <table>
           <thead><tr><th>Employee</th><th>Punch In</th><th>Punch Out</th><th>Hours</th><th>Status</th></tr></thead>

@@ -50,7 +50,7 @@ export default async function EmployeeProfilePage({ params, searchParams }: { pa
           {user.role === "ADMIN" ? <form action={deleteAction}><button type="submit" className="danger-btn">Delete</button></form> : null}
         </div>
       </div>
-      <section className="card" style={{ marginTop: "1rem" }}>
+      <section className="card mt-4">
         <p><strong>Code:</strong> {employee.employeeCode}</p>
         <p><strong>Name:</strong> {employee.fullName}</p>
         <p><strong>Email:</strong> {employee.email}</p>
