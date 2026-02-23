@@ -53,168 +53,188 @@ export type LeaveRequest = {
 
 export type LeaveBalance = {
   employeeId: string;
-  CL: number;
-  SL: number;
-  PL: number;
+  balance: number;
+  used: number;
+  total: number;
 };
 
+/** Granted leave days per employee (total). New employees get this as initial balance. */
+export const DEFAULT_LEAVE_GRANTED = 16;
+
 export const departments: Department[] = [
-  { id: "dep-eng", name: "Engineering", headId: "emp-002" },
-  { id: "dep-hr", name: "Human Resources", headId: "emp-004" },
-  { id: "dep-fin", name: "Finance", headId: "emp-005" }
+  { id: "dep-hr", name: "HR" },
+  { id: "dep-fin", name: "Finance" },
+  { id: "dep-cloud", name: "Cloud Delivery" },
+  { id: "dep-ops", name: "Operations" },
+  { id: "dep-tech", name: "Technical Delivery" },
+  { id: "dep-it", name: "IT" },
+  { id: "dep-talent", name: "Talent Mobility" }
 ];
 
 export const employees: Employee[] = [
+  // ===== ADMINS (HR) =====
   {
-    id: "emp-001",
-    employeeCode: "SAIL-001",
-    firstName: "Aarav",
-    lastName: "Mehta",
-    fullName: "Aarav Mehta",
-    email: "aarav.mehta@sailshr.local",
-    phone: "+919901122334",
-    joiningDate: "2024-04-10",
-    departmentId: "dep-eng",
-    managerId: "emp-002",
-    role: "EMPLOYEE",
-    status: "ACTIVE"
-  },
-  {
-    id: "emp-002",
-    employeeCode: "SAIL-002",
-    firstName: "Ishita",
-    lastName: "Sharma",
-    fullName: "Ishita Sharma",
-    email: "ishita.sharma@sailshr.local",
-    phone: "+919876123456",
-    joiningDate: "2023-02-06",
-    departmentId: "dep-eng",
-    role: "MANAGER",
-    status: "ACTIVE"
-  },
-  {
-    id: "emp-003",
-    employeeCode: "SAIL-003",
-    firstName: "Rohan",
-    lastName: "Nair",
-    fullName: "Rohan Nair",
-    email: "rohan.nair@sailshr.local",
-    phone: "+919845551212",
-    joiningDate: "2025-01-19",
-    departmentId: "dep-fin",
-    managerId: "emp-005",
-    role: "EMPLOYEE",
-    status: "ACTIVE"
-  },
-  {
-    id: "emp-004",
-    employeeCode: "SAIL-004",
-    firstName: "Neha",
-    lastName: "Bansal",
-    fullName: "Neha Bansal",
-    email: "neha.bansal@sailshr.local",
-    joiningDate: "2022-09-01",
-    departmentId: "dep-hr",
-    role: "HR",
-    status: "ACTIVE"
-  },
-  {
-    id: "emp-005",
-    employeeCode: "SAIL-005",
-    firstName: "Kabir",
-    lastName: "Joshi",
-    fullName: "Kabir Joshi",
-    email: "kabir.joshi@sailshr.local",
-    joiningDate: "2021-11-12",
-    departmentId: "dep-fin",
-    role: "MANAGER",
-    status: "ACTIVE"
-  },
-  {
-    id: "emp-999",
-    employeeCode: "SAIL-999",
-    firstName: "Admin",
-    lastName: "User",
-    fullName: "Admin User",
-    email: "admin@sailshr.local",
-    joiningDate: "2020-01-01",
+    id: "id-001",
+    employeeCode: "SS001",
+    firstName: "Kavita",
+    lastName: "HR",
+    fullName: "Kavita HR",
+    email: "kavita@sailshr.local",
+    joiningDate: "2022-01-10",
     departmentId: "dep-hr",
     role: "ADMIN",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-002",
+    employeeCode: "SS002",
+    firstName: "Madhuri",
+    lastName: "HR",
+    fullName: "Madhuri HR",
+    email: "madhuri@sailshr.local",
+    joiningDate: "2022-03-18",
+    departmentId: "dep-hr",
+    role: "ADMIN",
+    status: "ACTIVE"
+  },
+
+  // ===== MANAGERS =====
+  {
+    id: "id-003",
+    employeeCode: "SS003",
+    firstName: "Bhanu",
+    lastName: "Manager",
+    fullName: "Bhanu Manager",
+    email: "bhanu@sailshr.local",
+    joiningDate: "2021-06-12",
+    departmentId: "dep-tech",
+    role: "MANAGER",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-004",
+    employeeCode: "SS004",
+    firstName: "Srirag",
+    lastName: "Manager",
+    fullName: "Srirag Manager",
+    email: "srirag@sailshr.local",
+    joiningDate: "2021-08-05",
+    departmentId: "dep-cloud",
+    role: "MANAGER",
+    status: "ACTIVE"
+  },
+
+  // ===== EMPLOYEES (SITA under managers) =====
+  {
+    id: "id-005",
+    employeeCode: "SS005",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita Padala",
+    email: "sita1@sailshr.local",
+    joiningDate: "2024-01-15",
+    departmentId: "dep-cloud",
+    managerId: "id-004",
+    role: "EMPLOYEE",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-006",
+    employeeCode: "SS006",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita (Bhanu)",
+    email: "sita2@sailshr.local",
+    joiningDate: "2024-02-10",
+    departmentId: "dep-tech",
+    managerId: "id-003",
+    role: "EMPLOYEE",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-007",
+    employeeCode: "SS007",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita (Srirag)",
+    email: "sita3@sailshr.local",
+    joiningDate: "2024-03-01",
+    departmentId: "dep-cloud",
+    managerId: "id-004",
+    role: "EMPLOYEE",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-008",
+    employeeCode: "SS008",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita (Bhanu)",
+    email: "sita4@sailshr.local",
+    joiningDate: "2024-03-20",
+    departmentId: "dep-tech",
+    managerId: "id-003",
+    role: "EMPLOYEE",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-009",
+    employeeCode: "SS009",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita (Srirag)",
+    email: "sita5@sailshr.local",
+    joiningDate: "2024-04-05",
+    departmentId: "dep-cloud",
+    managerId: "id-004",
+    role: "EMPLOYEE",
+    status: "ACTIVE"
+  },
+  {
+    id: "id-010",
+    employeeCode: "SS010",
+    firstName: "Sita",
+    lastName: "Employee",
+    fullName: "Sita (Srirag)",
+    email: "sita6@sailshr.local",
+    joiningDate: "2024-04-18",
+    departmentId: "dep-cloud",
+    managerId: "id-004",
+    role: "EMPLOYEE",
     status: "ACTIVE"
   }
 ];
 
 export const authUsers: AuthUser[] = [
-  { id: "usr-001", email: "employee@sailshr.local", password: "Pass@123", role: "EMPLOYEE", employeeId: "emp-001" },
-  { id: "usr-002", email: "manager@sailshr.local", password: "Pass@123", role: "MANAGER", employeeId: "emp-002" },
-  { id: "usr-003", email: "hr@sailshr.local", password: "Pass@123", role: "HR", employeeId: "emp-004" },
-  { id: "usr-004", email: "admin@sailshr.local", password: "Pass@123", role: "ADMIN", employeeId: "emp-999" }
+  { id: "AU1", email: "kavita@sailshr.local", password: "Pass@123", role: "ADMIN", employeeId: "id-001" },
+  { id: "AU2", email: "madhuri@sailshr.local", password: "Pass@123", role: "ADMIN", employeeId: "id-002" },
+  { id: "AU3", email: "bhanu@sailshr.local", password: "Pass@123", role: "MANAGER", employeeId: "id-003" },
+  { id: "AU4", email: "srirag@sailshr.local", password: "Pass@123", role: "MANAGER", employeeId: "id-004" },
+  { id: "AU5", email: "sita1@sailshr.local", password: "Pass@123", role: "EMPLOYEE", employeeId: "id-005" }
 ];
 
 export const attendance: AttendanceRecord[] = [
-  {
-    employeeId: "emp-001",
-    date: "2026-02-10",
-    punchInAt: "2026-02-10T09:22:00.000Z",
-    punchOutAt: "2026-02-10T18:19:00.000Z",
-    punchIn: "09:22",
-    punchOut: "18:19",
-    status: "PRESENT",
-    workHours: 8.95
-  },
-  {
-    employeeId: "emp-002",
-    date: "2026-02-10",
-    punchInAt: "2026-02-10T09:04:00.000Z",
-    punchOutAt: "2026-02-10T18:02:00.000Z",
-    punchIn: "09:04",
-    punchOut: "18:02",
-    status: "PRESENT",
-    workHours: 8.96
-  },
-  {
-    employeeId: "emp-003",
-    date: "2026-02-10",
-    punchInAt: "2026-02-10T09:45:00.000Z",
-    punchOutAt: "2026-02-10T14:01:00.000Z",
-    punchIn: "09:45",
-    punchOut: "14:01",
-    status: "HALF_DAY",
-    workHours: 4.27
-  }
+  { employeeId: "id-001", date: "2026-02-10", punchInAt: "2026-02-10T09:00:00.000Z", punchOutAt: "2026-02-10T18:00:00.000Z", punchIn: "09:00", punchOut: "18:00", status: "PRESENT", workHours: 9 },
+  { employeeId: "id-003", date: "2026-02-10", punchInAt: "2026-02-10T09:04:00.000Z", punchOutAt: "2026-02-10T18:02:00.000Z", punchIn: "09:04", punchOut: "18:02", status: "PRESENT", workHours: 8.96 },
+  { employeeId: "id-004", date: "2026-02-10", punchInAt: "2026-02-10T09:10:00.000Z", punchOutAt: "2026-02-10T18:05:00.000Z", punchIn: "09:10", punchOut: "18:05", status: "PRESENT", workHours: 8.92 },
+  { employeeId: "id-005", date: "2026-02-10", punchInAt: "2026-02-10T09:22:00.000Z", punchOutAt: "2026-02-10T18:19:00.000Z", punchIn: "09:22", punchOut: "18:19", status: "PRESENT", workHours: 8.95 },
+  { employeeId: "id-006", date: "2026-02-10", punchInAt: "2026-02-10T09:45:00.000Z", punchOutAt: "2026-02-10T14:01:00.000Z", punchIn: "09:45", punchOut: "14:01", status: "HALF_DAY", workHours: 4.27 }
 ];
 
 export const leaveRequests: LeaveRequest[] = [
-  {
-    id: "leave-001",
-    employeeId: "emp-001",
-    type: "CL",
-    startDate: "2026-02-14",
-    endDate: "2026-02-14",
-    totalDays: 1,
-    reason: "Personal work",
-    status: "PENDING",
-    approverId: "emp-002"
-  },
-  {
-    id: "leave-002",
-    employeeId: "emp-003",
-    type: "SL",
-    startDate: "2026-02-09",
-    endDate: "2026-02-10",
-    totalDays: 2,
-    reason: "Fever",
-    status: "APPROVED",
-    approverId: "emp-005",
-    decidedAt: "2026-02-08T10:30:00.000Z"
-  }
+  { id: "leave-001", employeeId: "id-005", type: "CL", startDate: "2026-02-14", endDate: "2026-02-14", totalDays: 1, reason: "Personal work", status: "PENDING", approverId: "id-004" },
+  { id: "leave-002", employeeId: "id-006", type: "SL", startDate: "2026-02-09", endDate: "2026-02-10", totalDays: 2, reason: "Fever", status: "APPROVED", approverId: "id-003", decidedAt: "2026-02-08T10:30:00.000Z" }
 ];
 
 export const leaveBalances: LeaveBalance[] = [
-  { employeeId: "emp-001", CL: 5, SL: 6, PL: 12 },
-  { employeeId: "emp-002", CL: 7, SL: 6, PL: 13 },
-  { employeeId: "emp-003", CL: 4, SL: 4, PL: 10 },
-  { employeeId: "emp-004", CL: 6, SL: 6, PL: 14 },
-  { employeeId: "emp-005", CL: 3, SL: 5, PL: 11 },
-  { employeeId: "emp-999", CL: 10, SL: 10, PL: 20 }
+  { employeeId: "id-001", balance: 15, used: 1, total: 16 },
+  { employeeId: "id-002", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-003", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-004", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-005", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-006", balance: 14, used: 2, total: 16 },
+  { employeeId: "id-007", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-008", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-009", balance: 16, used: 0, total: 16 },
+  { employeeId: "id-010", balance: 16, used: 0, total: 16 }
 ];
