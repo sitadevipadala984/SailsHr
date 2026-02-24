@@ -101,64 +101,6 @@ const commonGroups = (role: SessionUser["role"]): NavGroup[] => {
   ];
 };
 
-const iconClass = "h-5 w-5 shrink-0 text-slate-500";
-
-function SectionIcon({ sectionId }: { sectionId: string }) {
-  const baseProps = { className: iconClass, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8" };
-
-  if (sectionId === "home") {
-    return (
-      <svg {...baseProps}>
-        <path d="M3 11.2 12 4l9 7.2" />
-        <path d="M5.5 9.8V20h13V9.8" />
-      </svg>
-    );
-  }
-
-  if (sectionId === "my-worklife") {
-    return (
-      <svg {...baseProps}>
-        <rect x="3.5" y="5" width="17" height="15" rx="2" />
-        <path d="M8 5V3.5M16 5V3.5M3.5 9.5h17" />
-      </svg>
-    );
-  }
-
-  if (sectionId === "leave") {
-    return (
-      <svg {...baseProps}>
-        <path d="M6 12.5c0-4.2 2.5-7 6-7s6 2.8 6 7-2.5 7-6 7-6-2.8-6-7Z" />
-        <path d="M6.5 16.5C9.2 14.2 14.5 11 18 10" />
-      </svg>
-    );
-  }
-
-  if (sectionId === "attendance") {
-    return (
-      <svg {...baseProps}>
-        <circle cx="12" cy="12" r="8.5" />
-        <path d="M12 7.5v5l3 1.8" />
-      </svg>
-    );
-  }
-
-  if (sectionId === "salary") {
-    return (
-      <svg {...baseProps}>
-        <rect x="4" y="6" width="16" height="12" rx="2" />
-        <path d="M8.5 12h7M8.5 9.5h2.5M8.5 14.5h2.5" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg {...baseProps}>
-      <path d="M4.5 8.5h15M4.5 12h15M4.5 15.5h9" />
-      <rect x="3" y="4" width="18" height="16" rx="2" />
-    </svg>
-  );
-}
-
 export default function AuthShell({ user, children }: { user: SessionUser; children: ReactNode }) {
   const pathname = usePathname();
   const groups = useMemo(() => commonGroups(user.role), [user.role]);
