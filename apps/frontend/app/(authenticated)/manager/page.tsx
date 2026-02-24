@@ -25,46 +25,71 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
   const params = await searchParams;
 
   return (
-    <main>
-      <h1>Manager Attendance & Leave</h1>
-      <p className="subtitle">Role-based visibility for team attendance and leave approvals</p>
-
-      <section className="card mt-4">
-        <h2>Pending Leave Approvals</h2>
-        <table>
-          <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Action</th></tr></thead>
-          <tbody>
-            {pendingLeaves.length ? pendingLeaves.map((leave) => {
-              const approve = decideLeaveAction.bind(null, leave.id, "APPROVE");
-              const reject = decideLeaveAction.bind(null, leave.id, "REJECT");
-              return (
-                <tr key={leave.id}>
-                  <td>{leave.employeeId}</td><td>{leave.type}</td><td>{leave.startDate}</td><td>{leave.endDate}</td><td>{leave.totalDays}</td>
-                  <td>
-                    <div className="action-row">
-                      <form action={approve}><button type="submit">Approve</button></form>
-                      <form action={reject}><button type="submit" className="danger-btn">Reject</button></form>
-                    </div>
-                  </td>
-                </tr>
-              );
-            }) : <tr><td colSpan={6}>No pending leave approvals.</td></tr>}
-          </tbody>
-        </table>
-        {params.leaveError ? <p className="error-text">{params.leaveError}</p> : null}
-        {params.leaveUpdated ? <p className="success-text">Leave decision submitted.</p> : null}
+    <main className="space-y-5">
+      <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm lg:grid-cols-3">
+        <div className="rounded-xl bg-slate-50 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Today Team Presence</p>
+          <p className="mt-2 text-3xl font-semibold text-slate-900">{todayRows.length}</p>
+          <p className="text-sm text-slate-600">Employees with records today</p>
+        </div>
+        <div className="rounded-xl bg-slate-50 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Pending Leave</p>
+          <p className="mt-2 text-3xl font-semibold text-slate-900">{pendingLeaves.length}</p>
+          <p className="text-sm text-slate-600">Requests awaiting action</p>
+        </div>
+        <div className="rounded-xl bg-slate-50 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Quick Actions</p>
+          <p className="mt-2 text-sm text-slate-700">Review and approve leave requests to keep schedules healthy.</p>
+        </div>
       </section>
 
-      <section className="card mt-4">
-        <h2>Today&apos;s Team Status</h2>
-        <table>
-          <thead><tr><th>Employee</th><th>Punch In</th><th>Punch Out</th><th>Hours</th><th>Status</th></tr></thead>
-          <tbody>
-            {todayRows.length ? todayRows.map((row) => (
-              <tr key={`${row.employeeId}-${row.date}`}><td>{row.employeeId}</td><td>{row.punchIn ?? "--"}</td><td>{row.punchOut ?? "--"}</td><td>{row.workHours}</td><td>{row.status}</td></tr>
-            )) : <tr><td colSpan={5}>No attendance records available for today.</td></tr>}
-          </tbody>
-        </table>
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Attendance Summary</p><p className="mt-2 text-2xl font-semibold text-slate-900">{todayRows.filter((r) => r.status === "PRESENT").length} Present</p></article>
+        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Half Day</p><p className="mt-2 text-2xl font-semibold text-slate-900">{todayRows.filter((r) => r.status === "HALF_DAY").length}</p></article>
+        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Approved Leaves</p><p className="mt-2 text-2xl font-semibold text-slate-900">{pendingLeaves.filter((l) => l.status === "APPROVED").length}</p></article>
+        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Upcoming Holidays</p><p className="mt-2 text-sm text-slate-700">19 Mar · Ugadi</p><p className="text-sm text-slate-700">29 Mar · Holi</p></article>
+      </section>
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="text-xl">Pending Leave Approvals</h2>
+        <div className="mt-3 overflow-x-auto">
+          <table>
+            <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Action</th></tr></thead>
+            <tbody>
+              {pendingLeaves.length ? pendingLeaves.map((leave) => {
+                const approve = decideLeaveAction.bind(null, leave.id, "APPROVE");
+                const reject = decideLeaveAction.bind(null, leave.id, "REJECT");
+                return (
+                  <tr key={leave.id}>
+                    <td>{leave.employeeId}</td><td>{leave.type}</td><td>{leave.startDate}</td><td>{leave.endDate}</td><td>{leave.totalDays}</td>
+                    <td>
+                      <div className="action-row">
+                        <form action={approve}><button type="submit">Approve</button></form>
+                        <form action={reject}><button type="submit" className="danger-btn">Reject</button></form>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }) : <tr><td colSpan={6}>No pending leave approvals.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+        {params.leaveError ? <p className="error-text mt-2">{params.leaveError}</p> : null}
+        {params.leaveUpdated ? <p className="success-text mt-2">Leave decision submitted.</p> : null}
+      </section>
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="text-xl">Today&apos;s Team Status</h2>
+        <div className="mt-3 overflow-x-auto">
+          <table>
+            <thead><tr><th>Employee</th><th>Punch In</th><th>Punch Out</th><th>Hours</th><th>Status</th></tr></thead>
+            <tbody>
+              {todayRows.length ? todayRows.map((row) => (
+                <tr key={`${row.employeeId}-${row.date}`}><td>{row.employeeId}</td><td>{row.punchIn ?? "--"}</td><td>{row.punchOut ?? "--"}</td><td>{row.workHours}</td><td>{row.status}</td></tr>
+              )) : <tr><td colSpan={5}>No attendance records available for today.</td></tr>}
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   );
