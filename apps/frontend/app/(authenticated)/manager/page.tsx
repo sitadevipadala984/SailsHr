@@ -25,34 +25,34 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
   const params = await searchParams;
 
   return (
-    <main className="space-y-5">
-      <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm lg:grid-cols-3">
-        <div className="rounded-xl bg-slate-50 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Today Team Presence</p>
-          <p className="mt-2 text-3xl font-semibold text-slate-900">{todayRows.length}</p>
-          <p className="text-sm text-slate-600">Employees with records today</p>
+    <main className="space-y-6">
+      <section className="grid gap-6 rounded-xl border border-border bg-surface p-6 shadow-sm lg:grid-cols-3">
+        <div className="rounded-xl bg-muted p-6">
+          <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">Today Team Presence</p>
+          <p className="mt-2 text-3xl font-semibold text-text-primary">{todayRows.length}</p>
+          <p className="mt-2 text-sm text-text-secondary">Employees with records today</p>
         </div>
-        <div className="rounded-xl bg-slate-50 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Pending Leave</p>
-          <p className="mt-2 text-3xl font-semibold text-slate-900">{pendingLeaves.length}</p>
-          <p className="text-sm text-slate-600">Requests awaiting action</p>
+        <div className="rounded-xl bg-muted p-6">
+          <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">Pending Leave</p>
+          <p className="mt-2 text-3xl font-semibold text-text-primary">{pendingLeaves.length}</p>
+          <p className="mt-2 text-sm text-text-secondary">Requests awaiting action</p>
         </div>
-        <div className="rounded-xl bg-slate-50 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Quick Actions</p>
-          <p className="mt-2 text-sm text-slate-700">Review and approve leave requests to keep schedules healthy.</p>
+        <div className="rounded-xl bg-muted p-6">
+          <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">Quick Actions</p>
+          <p className="mt-2 text-sm text-text-secondary">Review and approve leave requests to keep schedules healthy.</p>
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Attendance Summary</p><p className="mt-2 text-2xl font-semibold text-slate-900">{todayRows.filter((r) => r.status === "PRESENT").length} Present</p></article>
-        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Half Day</p><p className="mt-2 text-2xl font-semibold text-slate-900">{todayRows.filter((r) => r.status === "HALF_DAY").length}</p></article>
-        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Approved Leaves</p><p className="mt-2 text-2xl font-semibold text-slate-900">{pendingLeaves.filter((l) => l.status === "APPROVED").length}</p></article>
-        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Upcoming Holidays</p><p className="mt-2 text-sm text-slate-700">19 Mar · Ugadi</p><p className="text-sm text-slate-700">29 Mar · Holi</p></article>
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article className="rounded-xl border border-border bg-surface p-6 shadow-sm"><p className="text-sm text-text-secondary">Attendance Summary</p><p className="mt-2 text-2xl font-semibold text-text-primary">{todayRows.filter((r) => r.status === "PRESENT").length} Present</p></article>
+        <article className="rounded-xl border border-border bg-surface p-6 shadow-sm"><p className="text-sm text-text-secondary">Half Day</p><p className="mt-2 text-2xl font-semibold text-text-primary">{todayRows.filter((r) => r.status === "HALF_DAY").length}</p></article>
+        <article className="rounded-xl border border-border bg-surface p-6 shadow-sm"><p className="text-sm text-text-secondary">Approved Leaves</p><p className="mt-2 text-2xl font-semibold text-text-primary">{pendingLeaves.filter((l) => l.status === "APPROVED").length}</p></article>
+        <article className="rounded-xl border border-border bg-surface p-6 shadow-sm"><p className="text-sm text-text-secondary">Upcoming Holidays</p><p className="mt-2 text-sm text-text-secondary">19 Mar · Ugadi</p><p className="mt-1 text-sm text-text-secondary">29 Mar · Holi</p></article>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="text-xl">Pending Leave Approvals</h2>
-        <div className="mt-3 overflow-x-auto">
+      <section className="rounded-xl border border-border bg-surface p-6 shadow-sm">
+        <h2 className="text-xl font-semibold text-text-primary">Pending Leave Approvals</h2>
+        <div className="mt-4 overflow-x-auto">
           <table>
             <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Action</th></tr></thead>
             <tbody>
@@ -74,13 +74,13 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
             </tbody>
           </table>
         </div>
-        {params.leaveError ? <p className="error-text mt-2">{params.leaveError}</p> : null}
-        {params.leaveUpdated ? <p className="success-text mt-2">Leave decision submitted.</p> : null}
+        {params.leaveError ? <p className="error-text mt-4">{params.leaveError}</p> : null}
+        {params.leaveUpdated ? <p className="success-text mt-4">Leave decision submitted.</p> : null}
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="text-xl">Today&apos;s Team Status</h2>
-        <div className="mt-3 overflow-x-auto">
+      <section className="rounded-xl border border-border bg-surface p-6 shadow-sm">
+        <h2 className="text-xl font-semibold text-text-primary">Today&apos;s Team Status</h2>
+        <div className="mt-4 overflow-x-auto">
           <table>
             <thead><tr><th>Employee</th><th>Punch In</th><th>Punch Out</th><th>Hours</th><th>Status</th></tr></thead>
             <tbody>

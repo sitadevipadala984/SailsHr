@@ -6,5 +6,5 @@ type CardProps = {
 };
 
 export function Card({ children, className = "" }: CardProps) {
-  return <section className={`rounded-md border border-gray-200 bg-white p-6 shadow-sm ${className}`.trim()}>{children}</section>;
+  return <section className={`rounded-xl border border-border bg-surface p-6 shadow-sm ${className}`.trim()}>{children}</section>;
 }

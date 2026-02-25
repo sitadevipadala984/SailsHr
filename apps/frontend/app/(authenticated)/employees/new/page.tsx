@@ -27,9 +27,9 @@ export default async function NewEmployeePage({
   const params = await searchParams;
 
   return (
-    <main>
-      <h1>Create Employee</h1>
-      <section className="card mt-4">
+    <main className="space-y-6">
+      <h1 className="text-3xl font-semibold text-text-primary">Create Employee</h1>
+      <section className="card mt-6">
         <form action={createEmployeeAction} className="form-grid">
           <label>Employee Code<input name="employeeCode" required /></label>
           <label>First Name<input name="firstName" required /></label>

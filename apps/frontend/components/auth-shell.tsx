@@ -85,7 +85,7 @@ const commonGroups = (role: SessionUser["role"]): NavGroup[] => {
           <path d="M4 16c3 0 3 3 6 3s3-3 6-3 3 3 6 3" />
         </svg>
       ),
-      items: [{ href: "/employee", label: "Payslip", section: "salary" }]
+      items: [{ href: "/salary", label: "Payslip", section: "salary" }]
     },
     {
       id: "requests",
@@ -126,20 +126,20 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
     .find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))?.label;
 
   return (
-    <div className="grid min-h-screen bg-[#f5f7fb] lg:grid-cols-[240px_1fr]">
-      <aside className="flex h-screen flex-col border-r border-slate-200 bg-[#f7f9fc]">
-        <div className="border-b border-slate-200 px-5 py-5">
-          <div className="text-4xl font-black italic leading-none text-sky-600">SAILS</div>
-          <p className="mt-1 text-xs font-semibold tracking-wide text-slate-500">Software</p>
+    <div className="grid min-h-screen bg-background lg:grid-cols-[240px_1fr]">
+      <aside className="flex h-screen flex-col border-r border-border bg-surface">
+        <div className="border-b border-border px-6 py-6">
+          <div className="text-3xl font-semibold leading-none text-primary">SAILS</div>
+          <p className="mt-2 text-xs text-text-secondary">Software</p>
         </div>
 
-        <div className="flex items-center justify-between px-5 py-4">
+        <div className="flex items-center justify-between px-6 py-4">
           <div>
-            <p className="text-3xl leading-none">👤</p>
-            <p className="mt-2 text-2xl font-medium text-slate-800">Hi {user.email.split("@")[0]}</p>
-            <p className="text-xs font-medium text-blue-600">View My Info</p>
+            <p className="text-2xl leading-none">👤</p>
+            <p className="mt-2 text-lg font-medium text-text-primary">Hi {user.email.split("@")[0]}</p>
+            <p className="text-xs font-medium text-accent">View My Info</p>
           </div>
-          <button type="button" className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+          <button type="button" className="rounded-lg p-2 text-text-secondary bg-muted transition hover:bg-border hover:text-text-primary">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
               <path d="M3.5 12h2M18.5 12h2M12 3.5v2M12 18.5v2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M5.8 18.2l1.5-1.5M16.7 7.3l1.5-1.5" />
@@ -147,25 +147,38 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
           </button>
         </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-6">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-4 pb-6">
           {groups.map((group) => {
+            if (group.id === "home") {
+              const homeItem = group.items[0];
+              return (
+                <Link
+                  key={group.id}
+                  href={homeItem.href}
+                  className="flex w-full items-center gap-4 rounded-lg px-4 py-2 text-text-secondary bg-muted transition hover:bg-border hover:text-text-primary"
+                >
+                  <span className="text-text-secondary">{group.icon}</span>
+                  <span className="text-lg font-medium text-text-primary">{group.label}</span>
+                </Link>
+              );
+            }
+
             const isOpen = openGroups[group.id];
-            const hasActive = group.items.some((item) => pathname === item.href || pathname.startsWith(`${item.href}/`));
 
             return (
               <div key={group.id}>
                 <button
                   type="button"
                   onClick={() => setOpenGroups((prev) => ({ ...prev, [group.id]: !prev[group.id] }))}
-                  className="flex w-full items-center justify-between rounded-md px-2 py-2 text-slate-600 transition hover:bg-slate-100"
+                  className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-text-secondary bg-muted transition hover:bg-border hover:text-text-primary"
                 >
-                  <span className="flex items-center gap-3 text-[32px] font-normal">
-                    <span className="text-slate-400">{group.icon}</span>
-                    <span className="text-[18px] text-slate-600">{group.label}</span>
+                  <span className="flex items-center gap-4">
+                    <span className="text-text-secondary">{group.icon}</span>
+                    <span className="text-lg font-medium text-text-primary">{group.label}</span>
                   </span>
                   <svg
                     viewBox="0 0 16 16"
-                    className={`h-4 w-4 text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`h-4 w-4 text-text-secondary transition-transform ${isOpen ? "rotate-180" : ""}`}
                     fill="none"
                   >
                     <path d="M3 6.5 8 11l5-4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -173,29 +186,20 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
                 </button>
 
                 <div
-                  className={`overflow-hidden pl-9 transition-all duration-300 ease-in-out ${
+                  className={`overflow-hidden pl-8 transition-all duration-300 ease-in-out ${
                     isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  {group.items.map((item) => {
-                    const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`my-1 block rounded-sm border-l-2 px-3 py-2 text-[17px] transition ${
-                          isActive
-                            ? "border-l-blue-600 bg-[#e9eef8] text-[#4163d8]"
-                            : "border-l-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-700"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="my-1 block rounded-lg border-l-2 border-l-transparent bg-muted px-4 py-2 text-sm text-text-secondary transition hover:bg-border hover:text-text-primary"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
-
-                {hasActive && !isOpen && <div className="ml-9 mt-1 h-1 w-12 rounded-full bg-blue-200" />}
               </div>
             );
           })}
@@ -203,19 +207,19 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
       </aside>
 
       <div className="grid min-h-screen grid-rows-[80px_1fr]">
-        <header className="flex items-center justify-between border-b border-slate-200 bg-white px-7">
-          <div className="flex items-center gap-3 text-slate-800">
-            <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#7aa0ff]" fill="currentColor">
+        <header className="flex items-center justify-between border-b border-border bg-surface px-6">
+          <div className="flex items-center gap-4 text-text-primary">
+            <svg viewBox="0 0 24 24" className="h-6 w-6 text-accent" fill="currentColor">
               <path d="M5 4h8l6 7-6 9H5z" />
             </svg>
-            <h1 className="text-[40px] font-normal">{title ?? "Home"}</h1>
+            <h1 className="text-3xl font-semibold">{title ?? "Home"}</h1>
           </div>
 
-          <div className="relative flex items-center gap-5" ref={quickLinksRef}>
+          <div className="relative flex items-center gap-6" ref={quickLinksRef}>
             <button
               type="button"
               onClick={() => setQuickLinksOpen((prev) => !prev)}
-              className="flex items-center gap-1 text-[36px] text-slate-600 hover:text-slate-800"
+              className="flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary"
             >
               Quick Links
               <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor">
@@ -224,30 +228,30 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
             </button>
 
             {quickLinksOpen && (
-              <div className="absolute right-20 top-10 z-30 w-48 rounded-md border border-slate-200 bg-white p-2 shadow-lg">
-                <Link className="block rounded px-2 py-2 text-sm text-slate-600 hover:bg-slate-100" href="/employees">
+              <div className="absolute right-0 top-10 z-30 w-48 rounded-lg border border-border bg-surface p-2 shadow-lg">
+                <Link className="block rounded-lg px-4 py-2 text-sm text-text-secondary hover:bg-muted hover:text-text-primary" href="/employees">
                   Employee Directory
                 </Link>
-                <Link className="block rounded px-2 py-2 text-sm text-slate-600 hover:bg-slate-100" href="/leave">
+                <Link className="block rounded-lg px-4 py-2 text-sm text-text-secondary hover:bg-muted hover:text-text-primary" href="/leave">
                   Leave Center
                 </Link>
-                <Link className="block rounded px-2 py-2 text-sm text-slate-600 hover:bg-slate-100" href="/attendance">
+                <Link className="block rounded-lg px-4 py-2 text-sm text-text-secondary hover:bg-muted hover:text-text-primary" href="/attendance">
                   Attendance Info
                 </Link>
               </div>
             )}
 
-            <button type="button" className="relative text-slate-500 hover:text-slate-700" aria-label="Notifications">
+            <button type="button" className="relative text-text-secondary hover:text-text-primary" aria-label="Notifications">
               <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M7.5 9.5a4.5 4.5 0 1 1 9 0v3.2l1.5 2.3H6l1.5-2.3V9.5Z" />
                 <path d="M10 18a2 2 0 0 0 4 0" />
               </svg>
-              <span className="absolute -right-1 -top-1 h-2.5 w-2.5 animate-pulse rounded-full bg-rose-500" />
+              <span className="absolute -right-1 -top-1 h-2 w-2 animate-pulse rounded-full bg-error" />
             </button>
 
             <form action={logoutAction}>
-              <button type="submit" className="text-slate-500 transition hover:text-slate-700" aria-label="Logout">
-                <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <button type="submit" className="text-text-secondary transition hover:text-text-primary" aria-label="Logout">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M12 3v9" />
                   <path d="M7.8 5.8A8 8 0 1 0 16.2 5.8" />
                 </svg>
@@ -256,7 +260,7 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
           </div>
         </header>
 
-        <main className="px-7 py-5">{children}</main>
+        <main className="px-6 py-8">{children}</main>
       </div>
     </div>
   );

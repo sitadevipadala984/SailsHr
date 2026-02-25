@@ -49,9 +49,9 @@ export default async function EditEmployeePage({
   const updateAction = updateEmployeeAction.bind(null, employee.id);
 
   return (
-    <main>
-      <h1>Edit Employee</h1>
-      <section className="card mt-4">
+    <main className="space-y-6">
+      <h1 className="text-3xl font-semibold text-text-primary">Edit Employee</h1>
+      <section className="card mt-6">
         <form action={updateAction} className="form-grid">
           <label>Employee Code<input name="employeeCode" defaultValue={employee.employeeCode} required /></label>
           <label>First Name<input name="firstName" defaultValue={employee.firstName} required /></label>

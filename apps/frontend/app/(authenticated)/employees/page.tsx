@@ -27,12 +27,12 @@ export default async function EmployeeListPage() {
   const employees = (await response.json()) as Employee[];
 
   return (
-    <main>
+    <main className="space-y-6">
       <div className="heading-row">
-        <h1>Employee Management</h1>
+        <h1 className="text-3xl font-semibold text-text-primary">Employee Management</h1>
         {user.role !== "MANAGER" ? <Link href="/employees/new" className="link-btn">Add Employee</Link> : null}
       </div>
-      <section className="card mt-4">
+      <section className="card mt-6">
         <table>
           <thead>
             <tr><th>Code</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr>

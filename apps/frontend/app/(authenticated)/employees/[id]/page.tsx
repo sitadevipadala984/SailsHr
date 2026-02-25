@@ -42,15 +42,15 @@ export default async function EmployeeProfilePage({ params, searchParams }: { pa
   const deleteAction = deleteEmployeeAction.bind(null, employee.id);
 
   return (
-    <main>
+    <main className="space-y-6">
       <div className="heading-row">
-        <h1>Employee Profile</h1>
+        <h1 className="text-3xl font-semibold text-text-primary">Employee Profile</h1>
         <div className="action-row">
           {user.role !== "MANAGER" ? <Link href={`/employees/${employee.id}/edit`} className="link-btn">Edit</Link> : null}
           {user.role === "ADMIN" ? <form action={deleteAction}><button type="submit" className="danger-btn">Delete</button></form> : null}
         </div>
       </div>
-      <section className="card mt-4">
+      <section className="card mt-6">
         <p><strong>Code:</strong> {employee.employeeCode}</p>
         <p><strong>Name:</strong> {employee.fullName}</p>
         <p><strong>Email:</strong> {employee.email}</p>

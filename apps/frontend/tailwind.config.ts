@@ -2,11 +2,28 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: "class",
+  safelist: [
+    "bg-background",
+    "bg-surface",
+    "bg-muted",
+    "bg-accent",
+    "text-text-primary",
+    "text-text-secondary",
+    "text-white",
+    "text-error",
+    "text-success",
+    "border-border",
+    "border-accent",
+    "ring-2",
+    "ring-accent/20",
+    "font-sans"
+  ],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
-    "./src/theme/**/*.{ts,tsx}"
+    "./src/theme/**/*.{ts,tsx}",
+    "./src/styles/**/*.css"
   ],
   theme: {
     container: {
@@ -18,44 +35,22 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: {
-          50: "#eef4ff",
-          100: "#dbe7ff",
-          200: "#b6ceff",
-          300: "#84aaff",
-          400: "#4f82ff",
-          500: "#2563eb",
-          600: "#1d4ed8",
-          700: "#1e40af",
-          800: "#1e3a8a",
-          900: "#172554"
+        primary: "#0F172A",
+        accent: "#6366F1",
+        "accent-hover": "#4F46E5",
+        background: "#F8FAFC",
+        surface: "#FFFFFF",
+        muted: "#F1F5F9",
+        border: "#CBD5E1",
+        text: {
+          primary: "#0F172A",
+          secondary: "#64748B"
         },
-        gray: {
-          50: "#f9fafb",
-          100: "#f3f4f6",
-          200: "#e5e7eb",
-          300: "#d1d5db",
-          400: "#9ca3af",
-          500: "#6b7280",
-          600: "#4b5563",
-          700: "#374151",
-          800: "#1f2937",
-          900: "#111827"
-        },
-        success: "#16a34a",
-        warning: "#f59e0b",
-        error: "#dc2626",
-        info: "#0284c7",
-        "bg-page": "#f3f4f6",
-        "bg-card": "#ffffff",
-        "bg-sidebar": "#ffffff",
-        "bg-header": "#ffffff",
-        "border-default": "#e5e7eb",
-        "border-light": "#f3f4f6",
-        "border-focus": "#2563eb"
+        success: "#22C55E",
+        error: "#DC2626"
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui"]
+        sans: ["var(--font-sans)", "Inter", "sans-serif"]
       },
       fontSize: {
         xs: ["12px", { lineHeight: "16px" }],
@@ -69,7 +64,13 @@ const config: Config = {
       borderRadius: {
         sm: "4px",
         md: "8px",
-        lg: "12px"
+        lg: "12px",
+        xl: "16px"
+      },
+      spacing: {
+        "18": "4.5rem",
+        "22": "5.5rem",
+        "30": "7.5rem"
       }
     }
   },
