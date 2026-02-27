@@ -1,4 +1,3 @@
-"use client";
 import { forwardRef, type ReactNode, useEffect } from "react";
 import { Button } from "./Button";
 
