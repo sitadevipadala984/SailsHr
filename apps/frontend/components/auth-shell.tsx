@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { logoutAction } from "../app/login/actions";
 import type { SessionUser } from "../lib/auth";
+import { Button } from "./ui";
 
 type NavItem = {
   href: string;
@@ -139,12 +140,12 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
             <p className="mt-2 text-lg font-medium text-text-primary">Hi {user.email.split("@")[0]}</p>
             <p className="text-xs font-medium text-accent">View My Info</p>
           </div>
-          <button type="button" className="rounded-lg p-2 text-text-secondary bg-muted transition hover:bg-border hover:text-text-primary">
+          <Button type="button" variant="ghost" size="sm" className="rounded-lg p-2 text-text-secondary hover:bg-border hover:text-text-primary">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
               <path d="M3.5 12h2M18.5 12h2M12 3.5v2M12 18.5v2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M5.8 18.2l1.5-1.5M16.7 7.3l1.5-1.5" />
             </svg>
-          </button>
+          </Button>
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-4 pb-6">
@@ -167,10 +168,11 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
 
             return (
               <div key={group.id}>
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={() => setOpenGroups((prev) => ({ ...prev, [group.id]: !prev[group.id] }))}
-                  className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-text-secondary bg-muted transition hover:bg-border hover:text-text-primary"
+                  className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-text-secondary hover:bg-border hover:text-text-primary"
                 >
                   <span className="flex items-center gap-4">
                     <span className="text-text-secondary">{group.icon}</span>
@@ -183,7 +185,7 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
                   >
                     <path d="M3 6.5 8 11l5-4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                   </svg>
-                </button>
+                </Button>
 
                 <div
                   className={`overflow-hidden pl-8 transition-all duration-300 ease-in-out ${
@@ -216,8 +218,9 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
           </div>
 
           <div className="relative flex items-center gap-6" ref={quickLinksRef}>
-            <button
+            <Button
               type="button"
+              variant="ghost"
               onClick={() => setQuickLinksOpen((prev) => !prev)}
               className="flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary"
             >
@@ -225,7 +228,7 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
               <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor">
                 <path d="M3 6.5 8 11l5-4.5z" />
               </svg>
-            </button>
+            </Button>
 
             {quickLinksOpen && (
               <div className="absolute right-0 top-10 z-30 w-48 rounded-lg border border-border bg-surface p-2 shadow-lg">
@@ -241,21 +244,21 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
               </div>
             )}
 
-            <button type="button" className="relative text-text-secondary hover:text-text-primary" aria-label="Notifications">
+            <Button type="button" variant="ghost" aria-label="Notifications" className="relative">
               <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M7.5 9.5a4.5 4.5 0 1 1 9 0v3.2l1.5 2.3H6l1.5-2.3V9.5Z" />
                 <path d="M10 18a2 2 0 0 0 4 0" />
               </svg>
               <span className="absolute -right-1 -top-1 h-2 w-2 animate-pulse rounded-full bg-error" />
-            </button>
+            </Button>
 
             <form action={logoutAction}>
-              <button type="submit" className="text-text-secondary transition hover:text-text-primary" aria-label="Logout">
+              <Button type="submit" variant="ghost" aria-label="Logout">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M12 3v9" />
                   <path d="M7.8 5.8A8 8 0 1 0 16.2 5.8" />
                 </svg>
-              </button>
+              </Button>
             </form>
           </div>
         </header>

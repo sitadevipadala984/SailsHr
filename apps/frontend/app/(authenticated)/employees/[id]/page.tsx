@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../../lib/auth";
+import { Button, Card } from "../../../../components/ui";
 import { deleteEmployeeAction } from "../actions";
 
 type Employee = {
@@ -47,10 +48,10 @@ export default async function EmployeeProfilePage({ params, searchParams }: { pa
         <h1 className="text-3xl font-semibold text-text-primary">Employee Profile</h1>
         <div className="action-row">
           {user.role !== "MANAGER" ? <Link href={`/employees/${employee.id}/edit`} className="link-btn">Edit</Link> : null}
-          {user.role === "ADMIN" ? <form action={deleteAction}><button type="submit" className="danger-btn">Delete</button></form> : null}
+          {user.role === "ADMIN" ? <form action={deleteAction}><Button type="submit" variant="danger">Delete</Button></form> : null}
         </div>
       </div>
-      <section className="card mt-6">
+      <Card className="mt-6 p-6">
         <p><strong>Code:</strong> {employee.employeeCode}</p>
         <p><strong>Name:</strong> {employee.fullName}</p>
         <p><strong>Email:</strong> {employee.email}</p>
@@ -59,7 +60,7 @@ export default async function EmployeeProfilePage({ params, searchParams }: { pa
         <p><strong>Department:</strong> {employee.departmentId}</p>
         <p><strong>Role:</strong> {employee.role}</p>
         <p><strong>Status:</strong> {employee.status}</p>
-      </section>
+      </Card>
       {errors.error ? <p className="error-text">{errors.error}</p> : null}
     </main>
   );

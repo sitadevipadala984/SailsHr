@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../lib/auth";
+import { Button } from "../../../components/ui";
 import { decideLeaveAction } from "../leave/actions";
 
 type Attendance = { employeeId: string; date: string; punchIn?: string; punchOut?: string; workHours: number; status: string };
@@ -64,8 +65,8 @@ export default async function ManagerPage({ searchParams }: { searchParams: Prom
                     <td>{leave.employeeId}</td><td>{leave.type}</td><td>{leave.startDate}</td><td>{leave.endDate}</td><td>{leave.totalDays}</td>
                     <td>
                       <div className="action-row">
-                        <form action={approve}><button type="submit">Approve</button></form>
-                        <form action={reject}><button type="submit" className="danger-btn">Reject</button></form>
+                        <form action={approve}><Button type="submit" variant="primary">Approve</Button></form>
+                        <form action={reject}><Button type="submit" variant="danger">Reject</Button></form>
                       </div>
                     </td>
                   </tr>

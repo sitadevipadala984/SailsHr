@@ -15,7 +15,7 @@ export async function applyLeaveAction(formData: FormData): Promise<void> {
   const reason = String(formData.get("reason") ?? "");
 
   if (!type || !startDate || !endDate) {
-    redirect("/employee?leaveError=Type,%20start%20date%20and%20end%20date%20are%20required");
+    redirect("/leave?leaveError=" + encodeURIComponent("Type, start date and end date are required"));
   }
 
   const response = await fetch(`${baseUrl}/api/v1/leaves/apply`, {
@@ -30,10 +30,10 @@ export async function applyLeaveAction(formData: FormData): Promise<void> {
 
   if (!response.ok) {
     const body = (await response.json().catch(() => ({ message: "Leave apply failed" }))) as { message?: string };
-    redirect(`/employee?leaveError=${encodeURIComponent(body.message ?? "Leave apply failed")}`);
+    redirect(`/leave?leaveError=${encodeURIComponent(body.message ?? "Leave apply failed")}`);
   }
 
-  redirect(`/employee?leaveUpdated=${Date.now()}`);
+  redirect(`/leave?leaveUpdated=${Date.now()}`);
 }
 
 export async function decideLeaveAction(leaveId: string, action: "APPROVE" | "REJECT"): Promise<void> {

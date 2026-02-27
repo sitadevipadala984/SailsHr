@@ -2,8 +2,8 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../lib/auth";
+import { Button } from "../../../components/ui";
 import { punchInAction, punchOutAction } from "../attendance/actions";
-import { applyLeaveAction } from "../leave/actions";
 
 type Attendance = {
   employeeId: string;
@@ -124,8 +124,8 @@ export default async function EmployeePage({
         <div className="flex flex-wrap items-center gap-4">
           <h2 className="text-xl font-semibold text-text-primary">Today&apos;s Attendance</h2>
           <div className="ml-auto flex gap-2">
-            <form action={punchInAction}><button type="submit" disabled={Boolean(todayRecord?.punchInAt)}>Punch In</button></form>
-            <form action={punchOutAction}><button type="submit" disabled={!todayRecord?.punchInAt || Boolean(todayRecord?.punchOutAt)}>Punch Out</button></form>
+            <form action={punchInAction}><Button type="submit" variant="primary" disabled={Boolean(todayRecord?.punchInAt)}>Punch In</Button></form>
+            <form action={punchOutAction}><Button type="submit" variant="primary" disabled={!todayRecord?.punchInAt || Boolean(todayRecord?.punchOutAt)}>Punch Out</Button></form>
           </div>
         </div>
         {params.error ? <p className="error-text mt-4">{params.error}</p> : null}
@@ -134,21 +134,13 @@ export default async function EmployeePage({
 
       <section className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <h2 className="text-xl font-semibold text-text-primary">Apply Leave</h2>
-        <form action={applyLeaveAction} className="form-grid mt-6">
-          <label>Leave Type
-            <select name="type" required>
-              <option value="CL">CL</option>
-              <option value="SL">SL</option>
-              <option value="PL">PL</option>
-            </select>
-          </label>
-          <label>Start Date<input name="startDate" type="date" required /></label>
-          <label>End Date<input name="endDate" type="date" required /></label>
-          <label>Reason<input name="reason" placeholder="Optional" /></label>
-          <button type="submit">Apply Leave</button>
-        </form>
-        {params.leaveError ? <p className="error-text mt-4">{params.leaveError}</p> : null}
-        {params.leaveUpdated ? <p className="success-text mt-4">Leave request submitted.</p> : null}
+        <p className="mt-2 text-sm text-text-secondary">Submit and track leave requests from the Leave page.</p>
+        <Link
+          href="/leave"
+          className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+        >
+          Go to Leave →
+        </Link>
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">

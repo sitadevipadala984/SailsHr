@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../../../lib/auth";
+import { Button, Card, Input, Select } from "../../../../../components/ui";
 import { updateEmployeeAction } from "../../actions";
 
 type Department = { id: string; name: string };
@@ -51,55 +52,55 @@ export default async function EditEmployeePage({
   return (
     <main className="space-y-6">
       <h1 className="text-3xl font-semibold text-text-primary">Edit Employee</h1>
-      <section className="card mt-6">
+      <Card className="mt-6 p-6">
         <form action={updateAction} className="form-grid">
-          <label>Employee Code<input name="employeeCode" defaultValue={employee.employeeCode} required /></label>
-          <label>First Name<input name="firstName" defaultValue={employee.firstName} required /></label>
-          <label>Last Name<input name="lastName" defaultValue={employee.lastName} required /></label>
-          <label>Email<input name="email" type="email" defaultValue={employee.email} required /></label>
-          <label>Phone<input name="phone" defaultValue={employee.phone ?? ""} /></label>
-          <label>Joining Date<input name="joiningDate" type="date" defaultValue={employee.joiningDate} required /></label>
+          <label>Employee Code<Input name="employeeCode" defaultValue={employee.employeeCode} required /></label>
+          <label>First Name<Input name="firstName" defaultValue={employee.firstName} required /></label>
+          <label>Last Name<Input name="lastName" defaultValue={employee.lastName} required /></label>
+          <label>Email<Input name="email" type="email" defaultValue={employee.email} required /></label>
+          <label>Phone<Input name="phone" defaultValue={employee.phone ?? ""} /></label>
+          <label>Joining Date<Input name="joiningDate" type="date" defaultValue={employee.joiningDate} required /></label>
 
           <label>
             Department
-            <select name="departmentId" defaultValue={employee.departmentId} required>
+            <Select name="departmentId" defaultValue={employee.departmentId} required>
               {departments.map((department) => <option key={department.id} value={department.id}>{department.name}</option>)}
-            </select>
+            </Select>
           </label>
 
           <label>
             Role
-            <select name="role" defaultValue={employee.role} required>
+            <Select name="role" defaultValue={employee.role} required>
               <option value="EMPLOYEE">Employee</option>
               <option value="MANAGER">Manager</option>
               <option value="HR">HR</option>
               <option value="ADMIN">Admin</option>
-            </select>
+            </Select>
           </label>
 
           <label>
             Reporting Manager
-            <select name="managerId" defaultValue={employee.managerId ?? ""}>
+            <Select name="managerId" defaultValue={employee.managerId ?? ""}>
               <option value="">No Manager</option>
               {employees.filter((item) => item.id !== employee.id).map((record) => (
                 <option key={record.id} value={record.id}>{record.fullName}</option>
               ))}
-            </select>
+            </Select>
           </label>
 
           <label>
             Status
-            <select name="employmentStatus" defaultValue={employee.status}>
+            <Select name="employmentStatus" defaultValue={employee.status}>
               <option value="ACTIVE">ACTIVE</option>
               <option value="ON_NOTICE">ON_NOTICE</option>
               <option value="EXITED">EXITED</option>
-            </select>
+            </Select>
           </label>
 
-          <button type="submit">Save Changes</button>
+          <Button type="submit" variant="primary">Save Changes</Button>
         </form>
         {paramsData.error ? <p className="error-text">{paramsData.error}</p> : null}
-      </section>
+      </Card>
     </main>
   );
 }

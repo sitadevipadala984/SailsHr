@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../lib/auth";
+import { Card } from "../../../components/ui";
 
 type Employee = {
   id: string;
@@ -32,7 +33,7 @@ export default async function EmployeeListPage() {
         <h1 className="text-3xl font-semibold text-text-primary">Employee Management</h1>
         {user.role !== "MANAGER" ? <Link href="/employees/new" className="link-btn">Add Employee</Link> : null}
       </div>
-      <section className="card mt-6">
+      <Card className="mt-6 p-6">
         <table>
           <thead>
             <tr><th>Code</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr>
@@ -50,7 +51,7 @@ export default async function EmployeeListPage() {
             ))}
           </tbody>
         </table>
-      </section>
+      </Card>
     </main>
   );
 }

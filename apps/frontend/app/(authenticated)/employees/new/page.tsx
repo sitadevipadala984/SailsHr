@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "../../../../lib/auth";
+import { Button, Card, Input, Select } from "../../../../components/ui";
 import { createEmployeeAction } from "../actions";
 
 type Department = { id: string; name: string };
@@ -29,54 +30,54 @@ export default async function NewEmployeePage({
   return (
     <main className="space-y-6">
       <h1 className="text-3xl font-semibold text-text-primary">Create Employee</h1>
-      <section className="card mt-6">
+      <Card className="mt-6 p-6">
         <form action={createEmployeeAction} className="form-grid">
-          <label>Employee Code<input name="employeeCode" required /></label>
-          <label>First Name<input name="firstName" required /></label>
-          <label>Last Name<input name="lastName" required /></label>
-          <label>Email<input name="email" type="email" required /></label>
-          <label>Phone<input name="phone" /></label>
-          <label>Joining Date<input name="joiningDate" type="date" required /></label>
+          <label>Employee Code<Input name="employeeCode" required /></label>
+          <label>First Name<Input name="firstName" required /></label>
+          <label>Last Name<Input name="lastName" required /></label>
+          <label>Email<Input name="email" type="email" required /></label>
+          <label>Phone<Input name="phone" /></label>
+          <label>Joining Date<Input name="joiningDate" type="date" required /></label>
 
           <label>
             Department
-            <select name="departmentId" required>
+            <Select name="departmentId" required>
               <option value="">Select department</option>
               {departments.map((department) => <option key={department.id} value={department.id}>{department.name}</option>)}
-            </select>
+            </Select>
           </label>
 
           <label>
             Role
-            <select name="role" required>
+            <Select name="role" required>
               <option value="EMPLOYEE">Employee</option>
               <option value="MANAGER">Manager</option>
               <option value="HR">HR</option>
               <option value="ADMIN">Admin</option>
-            </select>
+            </Select>
           </label>
 
           <label>
             Reporting Manager
-            <select name="managerId">
+            <Select name="managerId">
               <option value="">No Manager</option>
               {employees.map((employee) => <option key={employee.id} value={employee.id}>{employee.fullName}</option>)}
-            </select>
+            </Select>
           </label>
 
           <label>
             Status
-            <select name="employmentStatus" defaultValue="ACTIVE">
+            <Select name="employmentStatus" defaultValue="ACTIVE">
               <option value="ACTIVE">ACTIVE</option>
               <option value="ON_NOTICE">ON_NOTICE</option>
               <option value="EXITED">EXITED</option>
-            </select>
+            </Select>
           </label>
 
-          <button type="submit">Create Employee</button>
+          <Button type="submit" variant="primary">Create Employee</Button>
         </form>
         {params.error ? <p className="error-text">{params.error}</p> : null}
-      </section>
+      </Card>
     </main>
   );
 }
