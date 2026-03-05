@@ -130,8 +130,21 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
     <div className="grid min-h-screen bg-background lg:grid-cols-[240px_1fr]">
       <aside className="flex h-screen flex-col border-r border-border bg-surface">
         <div className="border-b border-border px-6 py-6">
-          <div className="text-3xl font-semibold leading-none text-primary">SAILS</div>
-          <p className="mt-2 text-xs text-text-secondary">Software</p>
+          <svg
+            viewBox="0 0 48 48"
+            className="h-8 w-8 text-primary md:h-9 md:w-9"
+            fill="currentColor"
+            aria-label="SailsHR Logo"
+          >
+            {/* Main boat hull */}
+            <path d="M24 32 L16 42 H32 Z" fill="currentColor" />
+            {/* Boat line */}
+            <path d="M16 42 H32" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            {/* Main sail */}
+            <path d="M24 12 L20 28 L28 28 Z" fill="currentColor" fillOpacity="0.9" />
+            {/* Jib sail (smaller front sail) */}
+            <path d="M24 14 L21 26 L24 26 Z" fill="currentColor" fillOpacity="0.6" />
+          </svg>
         </div>
 
         <div className="flex items-center justify-between px-6 py-4">

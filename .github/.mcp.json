@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sails-hr-automation": {
+      "command": "node",
+      "args": [".github/sails-hr-mcp-server.js"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
