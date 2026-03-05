@@ -211,8 +211,10 @@ export default function AuthShell({ user, children }: { user: SessionUser; child
       <div className="grid min-h-screen grid-rows-[80px_1fr]">
         <header className="flex items-center justify-between border-b border-border bg-surface px-6">
           <div className="flex items-center gap-4 text-text-primary">
-            <svg viewBox="0 0 24 24" className="h-6 w-6 text-accent" fill="currentColor">
-              <path d="M5 4h8l6 7-6 9H5z" />
+            <svg viewBox="0 0 24 24" className="h-6 w-6 md:h-8 md:w-8 text-primary" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M2 12h20l-2 8H4l-2-8Z" />
+              <path d="M12 2v10" />
+              <path d="M8 6 12 2l4 4" />
             </svg>
             <h1 className="text-3xl font-semibold">{title ?? "Home"}</h1>
           </div>
