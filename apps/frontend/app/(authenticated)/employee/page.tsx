@@ -63,6 +63,10 @@ export default async function EmployeePage({
 
   return (
     <main className="space-y-6">
+      <div>
+        <h1 className="text-4xl font-bold text-text-primary">Employee Dashboard</h1>
+        <p className="mt-2 text-text-secondary">Welcome back! Here&apos;s your work summary.</p>
+      </div>
       <section className="grid gap-6 rounded-xl border border-border bg-surface p-6 shadow-sm lg:grid-cols-3">
         <div className="rounded-xl bg-muted p-6">
           <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">Today Status</p>
